@@ -1,0 +1,104 @@
+<template>
+  <div class="container-sm">
+    <div class="row">
+      <div class="col-6 text-end text-uppercase">
+        <router-link
+          :to="{ name: 'home' }"
+          class="nav-link"
+          aria-current="page"
+          exact-active-class="active"
+          >I tuoi viaggi</router-link
+        >
+      </div>
+      <div class="col-6 text-uppercase">
+        <!-- <router-link
+          :to="{ name: 'trip.create' }"
+          class="nav-link"
+          aria-current="page"
+          exact-active-class="active"
+          >Aggiungi viaggio</router-link
+        > -->
+      </div>
+    </div>
+  </div>
+  <div class="componentContainer" @touchstart="startDrag" @touchmove="onDrag" @touchend="endDrag">
+    <div class="slider" :style="{ transform: `translateX(${translateX}px)` }">
+      <div class="component" v-for="(component, index) in components" :key="index"></div>
+    </div>
+  </div>
+</template>
+
+<!-- <div class="component" id="TripList"><TripList></TripList></div>
+<div class="component" id="TripCreate"><TripCreate></TripCreate></div> -->
+<script>
+import TripList from '../components/TripList.vue'
+import TripCreate from '../components/TripCreate.vue'
+
+export default {
+  data() {
+    return {
+      myTrips: [],
+      startX: 0,
+      translateX: 0,
+      currentIndex: 0
+    }
+  },
+  components: {
+    TripList,
+    TripCreate
+  },
+
+  methods: {
+    startDrag(event) {
+      this.startX = event.touches[0].clientX
+    },
+    onDrag(event) {
+      const deltaX = event.touches[0].clientX - this.startX
+      this.translateX = -this.currentIndex * window.innerWidth + deltaX
+    },
+    endDrag(event) {
+      const deltaX = event.changedTouches[0].clientX - this.startX
+      if (deltaX > 50 && this.currentIndex > 0) {
+        this.currentIndex--
+      } else if (deltaX < -50 && this.currentIndex < this.components.length - 1) {
+        this.currentIndex++
+      }
+      this.translateX = -this.currentIndex * window.innerWidth
+    }
+  },
+  mounted() {}
+}
+</script>
+
+<style lang="scss">
+@use '../style/general' as *;
+
+.container {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.component {
+  width: 100vw;
+  height: 100vh;
+}
+
+// .componentContainer {
+//   display: flex;
+//   overflow: hidden;
+//   width: 200vw;
+// }
+
+// .component {
+//   flex: 1;
+//   transition: transform 0.3s ease;
+//   width: 100vw !important;
+// }
+</style>

@@ -1,0 +1,82 @@
+<script>
+import { RouterLink, RouterView } from 'vue-router'
+import Header from './components/Header.vue'
+export default {
+  data() {
+    return {
+      images: [
+        'url(./src/assets/castle.jpg)',
+        'url(./src/assets/jungle.jpg)',
+        'url(./src/assets/sea.jpg)'
+      ],
+      currentIndex: 0
+    }
+  },
+  methods: {
+    changeBackground() {
+      console.log('BACKGROUND')
+      const background = document.getElementById('appBackground')
+      background.style.setProperty('--background-image', this.images[this.currentIndex])
+      this.currentIndex = (this.currentIndex + 1) % this.images.length
+    }
+  },
+
+  components: {
+    Header
+  },
+  mounted() {
+    setInterval(this.changeBackground, 15000)
+  }
+}
+</script>
+
+<template>
+  <div id="appBackground">
+    <Header> </Header>
+    <RouterView />
+  </div>
+</template>
+
+<style lang="scss">
+@use './style/general.scss';
+body {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+#appBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  --background-image: url(./src/assets/castle.jpg);
+}
+#appBackground::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--background-image);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  filter: brightness(0.6);
+  z-index: -1;
+  transition: background-image 0.5s ease-in-out;
+}
+</style>
