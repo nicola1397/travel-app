@@ -31,29 +31,12 @@ export default {
 </script>
 
 <template>
-  <div id="appBackground">
-    <Header> </Header>
-    <RouterView />
-  </div>
+  <Header> </Header>
+  <RouterView />
 </template>
 
 <style lang="scss">
 @use './style/general.scss';
-body {
-  position: relative;
-  min-height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
-  margin: 0;
-  padding: 0;
-}
-#app {
-  position: relative;
-  min-height: 100vh;
-  width: 100vw;
-  overflow-x: hidden;
-}
-
 #appBackground {
   position: fixed;
   top: 0;
@@ -70,11 +53,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: var(--background-image);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.7;
+  background-image: var(--background-image);
   filter: brightness(0.6);
   z-index: -1;
   transition: background-image 0.5s ease-in-out;

@@ -6,11 +6,6 @@
           <div class="tripCard p-2 col-xs-12 col-md-6 col-lg-4" v-for="(trip, index) in myTrips">
             <Card :trip="trip" :index="index" @deleteTrip="handleDelete" class="" />
           </div>
-          <!-- <div class="col-xs-12 col-md-6 col-lg-4 d-flex justify-content-center align-items-center">
-            <button class="btn btn-warning" id="addTrip">
-              <i class="bi bi-calendar-plus"></i>
-            </button>
-          </div> -->
         </div>
       </div>
     </template>
@@ -31,10 +26,22 @@ export default {
       myTrips: []
     }
   },
+  watch: {
+    updated: {
+      handler() {
+        console.log('STATUS CHANGED')
+
+        if (this.updated == false) this.fetchTrips()
+      },
+      deep: true
+    }
+  },
+
   components: {
     Card
   },
-
+  props: { updated: Boolean },
+  emits: ['updateStatus'],
   methods: {
     handleDelete(index) {
       this.deleteTrip(index)
@@ -50,6 +57,7 @@ export default {
       if (trips) {
         this.myTrips = JSON.parse(trips)
       }
+      // this.$emit('updateStatus', true)
     }
   },
   mounted() {

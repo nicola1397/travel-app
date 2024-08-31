@@ -12,7 +12,13 @@
   <div class="componentContainer" @mousedown="startDrag" @mousemove="onDrag" @mouseup="endDrag">
     <div class="slider" :style="{ transform: `translateX(${translateX}px)` }">
       <div class="component" v-for="(componentName, index) in componentNames" :key="index">
-        <component :is="componentName" />
+        <component
+          :is="componentName"
+          @changePage="handlePageChange()"
+          @updateStatus="handleUpdate"
+          :key="this.myTrips"
+          :updated="this.updated"
+        />
       </div>
     </div>
   </div>
@@ -29,7 +35,8 @@ export default {
       startX: 0,
       translateX: 0,
       currentIndex: 0,
-      isMouseDown: false
+      isMouseDown: false,
+      updated: true
     }
   },
   watch: {
@@ -47,6 +54,19 @@ export default {
   },
 
   methods: {
+    handleUpdate(status) {
+      console.log(status)
+
+      this.updatedList(status)
+    },
+    updatedList(status) {
+      this.updated = status
+    },
+    handlePageChange() {
+      setTimeout(() => {
+        this.setPage(1)
+      }, 500)
+    },
     toggleActive() {
       const selectors = ['page-selector-1', 'page-selector-2']
       selectors.forEach((selector, index) => {

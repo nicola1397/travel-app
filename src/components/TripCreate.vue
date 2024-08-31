@@ -51,10 +51,9 @@
             name="start_date"
             v-model="newTrip.start_date"
             required
-            @input="valiDate()"
           />
           <div
-            v-if="newTrip.start_date !== '' && newTrip.start_date < formattedDate"
+            v-if="newTrip.start_date !== '' && newTrip.start_date > newTrip.end_date"
             class="text-danger"
           >
             La data inserita non è valida
@@ -68,10 +67,10 @@
             name="end_date"
             v-model="newTrip.end_date"
             required
-            @input="valiDate()"
+            @blur="valiDate()"
           />
           <div
-            v-if="newTrip.start_date !== '' && newTrip.start_date < formattedDate"
+            v-if="newTrip.start_date !== '' && newTrip.end_date < newTrip.start_date"
             class="text-danger"
           >
             La data inserita non è valida
@@ -112,7 +111,8 @@ export default {
       formattedDate: ''
     }
   },
-
+  props: { updated: Boolean },
+  emits: ['changePage', 'updateStatus'],
   methods: {
     triggerInputClick() {
       document.getElementById('thumbnail').click()
@@ -125,6 +125,8 @@ export default {
       }
     },
     valiDate() {
+      console.log('Date Validation')
+
       if (new Date(this.newTrip.start_date) <= new Date(this.newTrip.end_date)) {
         this.validated = true
         this.calculateDays()
@@ -146,7 +148,15 @@ export default {
       this.generateDays()
       this.myTrips.push(this.newTrip)
       localStorage.setItem('trips', JSON.stringify(this.myTrips))
-      router.push({ path: '/' })
+      const inputs = document.querySelectorAll('input')
+      inputs.forEach((input) => {
+        console.log(input.value)
+
+        input.value = ''
+      })
+      this.$emit('updateStatus', false)
+
+      this.$emit('changePage')
     },
     fetchTrips() {
       let trips = localStorage.getItem('trips')
