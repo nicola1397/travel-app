@@ -4,7 +4,14 @@
       <div class="col-sm-12 col-md-4">
         <div class="tripDetails">
           <div class="coverImageContainer">
-            <img :src="myTrip.image" alt="Immagine vacanza" class="coverImage" />
+            <img
+              :src="
+                myTrip.image ||
+                `https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=900`
+              "
+              alt="Immagine vacanza"
+              class="coverImage"
+            />
           </div>
           <div class="tripData">
             <h5>Titolo viaggio</h5>
