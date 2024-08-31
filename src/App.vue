@@ -4,11 +4,7 @@ import Header from './components/Header.vue'
 export default {
   data() {
     return {
-      images: [
-        'url(./src/assets/castle.jpg)',
-        'url(./src/assets/jungle.jpg)',
-        'url(./src/assets/sea.jpg)'
-      ],
+      images: ['url(./public/castle.jpg)', 'url(./public/jungle.jpg)', 'url(./public/sea.jpg)'],
       currentIndex: 0
     }
   },
@@ -44,7 +40,7 @@ export default {
   background-size: cover;
   height: 100vh;
   width: 100vw;
-  --background-image: url(./src/assets/castle.jpg);
+  --background-image: url(./public/castle.jpg);
 }
 #appBackground::before {
   content: '';
