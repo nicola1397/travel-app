@@ -39,6 +39,8 @@ export default {
 
 <style lang="scss">
 @use './style/general.scss';
+@use '../style/partials/mixins' as *;
+@use '../style/partials/variables' as *;
 #appBackground {
   position: fixed;
   top: 0;
