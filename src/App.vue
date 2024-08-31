@@ -4,7 +4,12 @@ import Header from './components/Header.vue'
 export default {
   data() {
     return {
-      images: [`url('@assets/jungle.jpg')`, `url('@assets/castle.jpg')`, `url('@assets/sea.jpg')`],
+      images: [
+        `url('https://images3.alphacoders.com/279/279609.jpg')`,
+        `url('https://track-pm.s3.amazonaws.com/vacationperfect/image/08ba29fa-e6cb-4cfb-bc8c-04c0b15d4c76')`,
+        `url('https://cdn.mahlatini.com/destinations/south-africa/winelands/boschendal/_2400x1350_crop_center-center_none/boschendal-mountain-villa-exterior-view-2400.jpg')`,
+        `url('https://c.wallhere.com/photos/31/b3/sky_panorama_sun_landscape_spring_nikon_italia_sanmarino-756537.jpg!d')`
+      ],
       currentIndex: 0
     }
   },
@@ -41,7 +46,7 @@ export default {
   background-size: cover;
   height: 100vh;
   width: 100vw;
-  --background-image: url('src/assets/castle.jpg');
+  --background-image: url('https://images3.alphacoders.com/279/279609.jpg');
 }
 #appBackground::before {
   content: '';
@@ -53,6 +58,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  background-color: $shade5;
   background-image: var(--background-image);
   filter: brightness(0.6);
   z-index: -1;
