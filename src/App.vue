@@ -39,8 +39,7 @@ export default {
 
 <style lang="scss">
 @use './style/general.scss';
-@use '../style/partials/mixins' as *;
-@use '../style/partials/variables' as *;
+
 #appBackground {
   position: fixed;
   top: 0;
@@ -60,7 +59,6 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  background-color: $shade5;
   background-image: var(--background-image);
   filter: brightness(0.6);
   z-index: -1;
