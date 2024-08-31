@@ -4,7 +4,7 @@ import Header from './components/Header.vue'
 export default {
   data() {
     return {
-      images: ['url("public/castle.jpg")', 'url("public/jungle.jpg")', 'url("public/sea.jpg")'],
+      images: ['url("/public/castle.jpg")', 'url("/public/jungle.jpg")', 'url("/public/sea.jpg")'],
       currentIndex: 0
     }
   },
